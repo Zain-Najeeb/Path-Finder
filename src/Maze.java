@@ -7,13 +7,14 @@ import java.util.List;
 
 public class Maze extends PApplet{
     boolean start = true;
+    public static Point2D end ;
+
     public static List<Point2D> wallsPositions = new ArrayList<>();
     public static Maze instance;
 
     public static HashMap<Point2D, Node> valid = new HashMap<>();
     public void settings() {
         if (instance == null) {
-
             instance = this;
         }
         size(800, 800);
@@ -32,13 +33,18 @@ public class Maze extends PApplet{
         int y = mouseY;
         y = roundpos(y);
         x = roundpos(x);
-        Point2D wall = new Point2D.Double(x,y);
-        if (!wallsPositions.contains(addCord(x,y))) wall(wall);
+       // System.out.println(x + " dfd" + y);
+        MazeGenerator mazeGenerator = new MazeGenerator();
+        mazeGenerator.generate(new Point2D.Double(0,0));
+
+
+//        Point2D wall = new Point2D.Double(x,y);
+//       if (!wallsPositions.contains(addCord(x,y))) wall(wall);
     }
 
     public void keyPressed() {
         if (key == 'w') {
-            algorithm.shortest_path(addCord(400, 600), addCord(325, 250), Maze.valid.get(new Point2D.Double(325, 250)));
+            algorithm.shortest_path(addCord(0, 0), Maze.end, Maze.valid.get(Maze.end));
         }
 
     }
@@ -49,13 +55,13 @@ public class Maze extends PApplet{
         return cord;
     }
 
-    public void wall(Point2D wall) {
-        wallsPositions.add(wall);
-        valid.remove(wall);
-        fill(0);
-        rect((int)wall.getX(),(int)wall.getY(),25,25);
-
-    }
+//    public void wall(Point2D wall) {
+//        wallsPositions.add(wall);
+//        valid.remove(wall);
+//        fill(0);
+//        rect((int)wall.getX(),(int)wall.getY(),25,25);
+//
+//    }
 
     public void grid() {
         for (int i = 0; i < 32; i++) {
@@ -68,10 +74,9 @@ public class Maze extends PApplet{
 
             }
         }
-        fill(0, 255, 0);
-        rect(400, 600, 25, 25);
-        fill(255,0,0);
-        rect(325, 250, 25, 25);
+
+        fill(0,255,0);
+        rect(0, 0, 25, 25);
 
     }
 

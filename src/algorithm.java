@@ -38,6 +38,7 @@ public class algorithm {
         while (true) {
             Maze.instance.fill(0,255,0);
             Maze.instance.rect(ends.x, ends.y, 25,25);
+
             if (Maze.valid.get(ends.parent) == Maze.valid.get(src)) break;
            ends = Maze.valid.get(ends.parent);
 
