@@ -7,7 +7,7 @@ import java.util.Objects;
 
 
 public class algorithm {
-    public static void shortest_path(Point2D src, Point2D end, Node ends) {
+    public static void shortest_path(Point2D src, Point2D end) {
         Maze.valid.get(src).distance = 0 ;
 
         List<Point2D> min_pq = new ArrayList<>();
@@ -32,16 +32,6 @@ public class algorithm {
 
             }
           min_pq= sorter(min_pq);
-
-        }
-        ends = Maze.valid.get(ends.parent);
-        while (true) {
-            Maze.instance.fill(0,255,0);
-            Maze.instance.rect(ends.x, ends.y, 25,25);
-
-            if (Maze.valid.get(ends.parent) == Maze.valid.get(src)) break;
-           ends = Maze.valid.get(ends.parent);
-
 
         }
 

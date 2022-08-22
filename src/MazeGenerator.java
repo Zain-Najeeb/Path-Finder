@@ -5,9 +5,11 @@ import java.util.HashMap;
 public class MazeGenerator {
     public static HashMap<Point2D, Node> movesvalid = new HashMap<>();
     public boolean valid = false;
-    public boolean half = true;
     public int counter = 0;
-    public void generate(Point2D start) {
+
+
+    public void generate() {
+        Point2D start = new Point2D.Double(0,0);
         stack stack = new stack();
 
         stack.push(start);
@@ -19,8 +21,8 @@ public class MazeGenerator {
             determineneigbor(stack.peek(), stack);
             if (valid) {
                 addwall(stack);
-    //            System.out.println(stack.peek());
-
+//                Maze.instance.fill(0,255,0);
+//                Maze.instance.rect((int) stack.peek().getX(),(int) stack.peek().getY(),25,25);
 
                 movesvalid.get(movesvalid.get(stack.peek()).parent).checked = true;
             } else {
@@ -51,7 +53,7 @@ public class MazeGenerator {
         Maze.instance.fill(0);
 
 
-        if (!Maze.wallsPositions.contains(n1) && !movesvalid.containsKey(n1) ) {
+        if (!Maze.wallsPositions.contains(n1) && !movesvalid.containsKey(n1)  && n1.getX() != 800) {
             Maze.valid.remove(n1);
             Maze.wallsPositions.add(n1);
             Maze.instance.fill(0,0,0);
@@ -59,7 +61,7 @@ public class MazeGenerator {
 
         }
        if (counter %2 == 0 || counter %5 == 0 ) {
-           if (!Maze.wallsPositions.contains(n2) && !movesvalid.containsKey(n2)) {
+           if (!Maze.wallsPositions.contains(n2) && !movesvalid.containsKey(n2) && n2.getX() != 800) {
                Maze.wallsPositions.add(n2);
                Maze.valid.remove(n2);
                Maze.instance.fill(0, 0, 0);
@@ -131,8 +133,8 @@ public class MazeGenerator {
     }
     public void determineend() {
         for (int i =32; i > 0; i--) {
-            if (movesvalid.containsKey(new Point2D.Double(i*25, 775))) {
-                Maze.end = new Point2D.Double(i*25, 775);
+            if (movesvalid.containsKey(new Point2D.Double( + i*25, 775))) {
+                Maze.end = new Point2D.Double(+i*25, 775);
                 break;
             }
         }
