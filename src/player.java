@@ -6,7 +6,7 @@ public class player {
     public static int score = 0;
 
 
-    public void move(char direction) {
+    public void move(char direction) throws Exception {
         if (direction == 'w' || direction == 'a'  ||direction == 's' ||direction == 'd' ) {
           if (gameView.created) {
                 int movex  = 25;
@@ -32,6 +32,7 @@ public class player {
                     if (n4.getX() == Maze.end.getX() && n4.getY() == Maze.end.getY()) {
                         score(true, n4);
                        Maze.maze.view.actions(900, 200);
+
                     }
                 }
           }
@@ -51,7 +52,7 @@ public class player {
 
         if (!end) {
             Maze.playervalid.get(node).checked = true;
-               Maze.score = score;
+            Maze.score = score;
             gameView.score();
         } else{
 

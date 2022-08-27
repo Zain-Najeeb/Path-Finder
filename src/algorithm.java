@@ -48,7 +48,6 @@ public class algorithm {
             for (Point2D index : pq ) {
                 if (Maze.valid.get(index).distance == sort.get(i) && !temp.contains(index)) {
                     temp.add(index);
-
                     break;
                 }
             }
