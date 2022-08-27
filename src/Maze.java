@@ -2,14 +2,15 @@
 
 import java.awt.geom.Point2D;
 import processing.core.PApplet;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+
+import java.util.*;
 
 public class Maze extends PApplet {
     public static int score = 0;
     public static int highscore = 0 ;
 
+
+    public static database getdata = new database();
     public static player player = new player();
     public static Maze maze = new Maze();
     boolean start = true;
@@ -51,15 +52,27 @@ public class Maze extends PApplet {
         int y = mouseY;
         y = roundpos(y);
         x = roundpos(x);
-        maze.view.actions(x,y);
+        try {
+            maze.view.actions(x,y);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void keyPressed() {
         if (maze.view.getMenu().equalsIgnoreCase("main")) {
 
-            player.move(key);
+            try {
+                player.move(key);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else if (maze.view.getMenu().equalsIgnoreCase("menu")) {
-            mainmenu.keyPressed(key);
+            try {
+                mainmenu.keyPressed(key);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
     }
@@ -104,4 +117,21 @@ public class Maze extends PApplet {
         Maze.instance.fill(204 ,204, 204);
         Maze.instance.rect(0,0,1200,800);
     }
+
+    public static HashMap<String, Integer> sortscore(HashMap<String, Integer> map ) {
+        ArrayList<Integer> sort = new ArrayList<>(map.values());
+        LinkedHashMap<String, Integer> newMap =  new LinkedHashMap<>() ;
+        Collections.sort(sort);
+        for (int i = sort.size()-1; i >= 0 ; i--) {
+            for (String key : map.keySet()) {
+                if (map.get(key).equals(sort.get(i))) {
+                    newMap.put(key, sort.get(i));
+                    map.remove(key);
+                    break;
+                }
+            }
+        }
+        return newMap;
+    }
+
 }

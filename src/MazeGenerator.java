@@ -21,9 +21,6 @@ public class MazeGenerator {
             determineneigbor(stack.peek(), stack);
             if (valid) {
                 addwall(stack);
-//                Maze.instance.fill(0,255,0);
-//                Maze.instance.rect((int) stack.peek().getX(),(int) stack.peek().getY(),25,25);
-
                 movesvalid.get(movesvalid.get(stack.peek()).parent).checked = true;
             } else {
                 movesvalid.get(stack.peek()).checked = true;
