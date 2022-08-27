@@ -13,13 +13,15 @@ public class gameView extends menus{
         Maze.instance.fill(255,255,255);
         Maze.instance.rect(850, 60, 300, 60);
         Maze.instance.rect(850, 180, 300, 60);
-        Maze.instance.rect(850, 180, 300, 60);
+         Maze.instance.rect(850, 380, 300, 60);
         Maze.instance.textSize(30);
         Maze.instance.fill(0);
-        Maze.instance.text("Use WASD TO Move!", 870, 50);
-        Maze.instance.text("Score", 950, 690);
+        Maze.instance.text("Use WASD to Move!", 870, 50);
+        Maze.instance.text("Score", 955, 685);
         Maze.instance.text("Highscore", 930, 590);
+
         Maze.instance.textSize(40);
+        Maze.instance.text("Leaderboard", 885, 425);
         Maze.instance.text("Generate!", 900, 110);
         Maze.instance.text("Solve!", 925, 230);
         score();
@@ -37,7 +39,39 @@ public class gameView extends menus{
                 created = true;
                 viewshortest(false);
             }
+
+           if (375<= y && y <= 425) {
+               Maze.maze.view.next();
+           }
+
+
             if (175<= y && y <= 230 && created) {
+                if (Maze.highscore < Maze.score ) {
+                    Maze.highscore = Maze.score;
+
+                    if (!Maze.getdata.doesExist) {
+                        if (mainmenu.name.length() != 0) {
+                            try {
+                                Maze.getdata.getHTML("https://zainnartech.com/requests/add.php?name=" + mainmenu.name + "&score=" + Maze.highscore);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                          }
+                        }else {
+                            try {
+
+                                Maze.getdata.getHTML("https://zainnartech.com/requests/update.php?name=" + mainmenu.name + "&score=" + Maze.highscore);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        Maze.getdata.scores.put(mainmenu.name, Maze.highscore);
+                        Maze.getdata.scores = Maze.sortscore(Maze.getdata.scores);
+
+
+
+                }
+
                 viewshortest(true);
                 created = false;
 
@@ -71,7 +105,11 @@ public class gameView extends menus{
 
     }
 
-
+    public void next() {
+        Maze.maze.reset();
+        Maze.maze.view = new scoreboard();
+        Maze.maze.view.view();
+    }
     public String getMenu() {
         return "Main";
     }
