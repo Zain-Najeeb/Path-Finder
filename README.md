@@ -7,3 +7,9 @@ This is my MazeGame that uses a database. If you would like a video explanation 
 5. Click extract here
 6. Open the folder 
 7. Go to "out" --> "artifacts" --> "MazeFinder_jar" --> MazeFinder.jar(double click)
+Some screenshots : 
+
+![](images/mainmenu.JPG)
+![](images/Maze.JPG)
+![](images/solve.JPG)
+![](images/leaderboard.JPG)
